@@ -133,7 +133,7 @@ test_data_1 = '\n+-------------------+--+\n|                   |  |\n|          
               '|\n|  |                   |\n|  |                   |\n+--+-------------------+ '
 test_data_2 = '\n+------------+\n|            |\n|            |\n|            |\n+------+-----+\n|      |     |\n|    ' \
               '  |     |\n+------+-----+ '
-break_pieces(test_data_2)
+break_pieces(test_data_1)
 
 test_data_ex = [
     ('Description example',
