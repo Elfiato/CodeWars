@@ -105,6 +105,90 @@ def draw_figure(all_figure):
         print('\n'.join(i))
 
 
+def draw_figure2(all_figures, field):
+    is_angle_flag = False
+    result_figures = []
+
+    for figure in all_figures:
+        current_figure = list(figure)
+        current_figure = filter_figure_point(current_figure, field)
+        field_borders = find_max_min_cord(current_figure)
+        result_figures.append([])
+        is_put_el = False
+        for i in range(field_borders[0] - field_borders[1] + 1):
+            result_figures[-1].append('')
+            for j in range(field_borders[2] - field_borders[3] + 1):
+                for point in current_figure:
+                    if i == point[0] - field_borders[1] and j == point[1] - field_borders[3]:
+                        is_angle_flag = True
+                        break
+                if is_angle_flag:
+                    result_figures[-1][-1] += '+'
+                    is_angle_flag = False
+                    continue
+                try:
+                    if result_figures[-1][-1][-1] in '+-':
+                        result_figures[-1][-1] += '-'
+                        is_put_el = True
+                except IndexError:
+                    pass
+                try:
+                    if result_figures[-1][-2][j] in '+|':
+                        result_figures[-1][-1] += '|'
+                        is_put_el = True
+                except IndexError:
+                    pass
+                try:
+                    if result_figures[-1][-1][-2] == '+' or result_figures[-1][-2][j] == '+':
+                        if (result_figures[-1][-1][-3] == '-' and result_figures[-1][-1][-1] == '-') or (
+                                result_figures[-1][-3][j] == '|' and result_figures[-1][-1][-1] == '|'):
+                            result_figures[-1][-1] = result_figures[-1][-1][:-1] + ' '
+                except IndexError:
+                    pass
+                if not is_put_el:
+                    result_figures[-1][-1] += ' '
+                    continue
+                is_put_el = False
+    for i in result_figures:
+        print('\n'.join(i))
+        print('!!!!!!!!!!!!!!!!!!!!!!!!')
+    return None
+
+
+def filter_figure_point(figure, field):
+    res = []
+    hor_up, hor_low = None, None
+    vert_up, vert_low = None, None
+    save_flag = True
+    for el1 in figure:
+        for el2 in figure:
+            if el1[0] == el2[0]:
+                if el2[1] > el1[1]:
+                    hor_up = el2[1]
+                elif el2[1] < el1[1]:
+                    hor_low = el2[1]
+            if el1[1] == el2[1]:
+                if el2[0] > el1[0]:
+                    vert_up = el2[0]
+                elif el2[0] < el1[0]:
+                    vert_low = el2[0]
+        if vert_up and vert_low:
+            save_flag = False
+            for i in range(vert_low, vert_up + 1):
+                if not field[i][el1[1]] in '|+':
+                    save_flag = True
+        elif hor_up and hor_low:
+            save_flag = False
+            for j in range(hor_low, hor_up + 1):
+                if not field[el1[0]][j] in '-+':
+                    save_flag = True
+        if save_flag:
+            res.append(el1)
+        hor_low, hor_up, vert_low, vert_up = None, None, None, None
+        save_flag = True
+    return res
+
+
 def break_pieces(shape):
     shape_list = shape.split('\n')
     print(*shape_list, sep='\n')
