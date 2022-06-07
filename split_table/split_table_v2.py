@@ -169,13 +169,35 @@ def draw_figure(figure, field):
             if not f_st and result_figure[st_ind][row_ind] in '|+':
                 f_st = True
             if f_st and result_figure[st_ind][row_ind] == ' ' and field[st_ind + mn_y][row_ind + mn_x] != ' ' and \
-                    tmp_st[row_ind-1] not in '+|':
+                    tmp_st[row_ind - 1] not in '+|':
                 result_figure[st_ind] = result_figure[st_ind][:row_ind] + field[st_ind + mn_y][row_ind + mn_x] + \
                                         result_figure[st_ind][row_ind + 1:]
     return '\n'.join(result_figure)
 
 
 def break_pieces(shape):
+    shape_list = shape.split('\n')
+    where_pluses = []
+    for i in range(len(shape_list)):
+        for j in range(len(shape_list[i])):
+            if shape_list[i][j] == '+':
+                where_pluses.append((i, j))
+
+    graph = {}
+    for el in where_pluses:
+        graph[el] = find_closest_neighbours(shape_list, el)
+
+    figures_angle_coordinates = []
+    figures_in_lines = []
+    for node in graph:
+        figure = find_figure(graph, node)
+        if figure not in figures_angle_coordinates:
+            figures_angle_coordinates.append(figure)
+            figures_in_lines.append(draw_figure(figure, shape_list))
+    return figures_in_lines
+
+
+def break_pieces2(shape):
     shape_list = shape.split('\n')
     print(*shape_list, sep='\n')
     where_pluses = []
@@ -198,6 +220,8 @@ def break_pieces(shape):
             figures_in_lines.append(draw_figure(figure, shape_list))
     print(*figures_in_lines, sep='\n#############\n')
     return figures_in_lines
+
+
 
 
 test_data_1 = '\n+-------------------+--+\n|                   |  |\n|                   |  |\n|  +----------------+  ' \
@@ -300,11 +324,21 @@ test_data_ex = [
           '+-------------------------+\n|                         |\n| +----+                  |\n| |    |     +------------+\n| |    |     |\n+-+    +-----+'])])]
 # break_pieces(test_data_5)
 
+# for task in test_data_ex:
+#     print(task[0])
+#     for task2 in task[1]:
+#         res = sorted(break_pieces2(task2[0]))
+#         expected = task2[1]
+#         print(res, expected, sep='\n')
+#         if res == task2[1]:
+#             print('\n Nice!!\n')
+
 for task in test_data_ex:
     print(task[0])
     for task2 in task[1]:
         res = sorted(break_pieces(task2[0]))
         expected = task2[1]
-        print(res, expected, sep='\n')
         if res == task2[1]:
-            print('\n Nice!!\n')
+            print('Nice!!')
+        else:
+            print('Wrong!')
