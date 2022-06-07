@@ -162,6 +162,16 @@ def draw_figure(figure, field):
                 result_figure[-1] += ' '
             is_put_el = False
         result_figure[-1] = result_figure[-1].rstrip()
+    for st_ind in range(len(result_figure)):
+        f_st = False
+        tmp_st = result_figure[st_ind]
+        for row_ind in range(len(result_figure[st_ind])):
+            if not f_st and result_figure[st_ind][row_ind] in '|+':
+                f_st = True
+            if f_st and result_figure[st_ind][row_ind] == ' ' and field[st_ind + mn_y][row_ind + mn_x] != ' ' and \
+                    tmp_st[row_ind-1] not in '+|':
+                result_figure[st_ind] = result_figure[st_ind][:row_ind] + field[st_ind + mn_y][row_ind + mn_x] + \
+                                        result_figure[st_ind][row_ind + 1:]
     return '\n'.join(result_figure)
 
 
