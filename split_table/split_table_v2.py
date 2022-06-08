@@ -22,7 +22,8 @@ def find_closest_neighbours(field, start_pos):
     while direction_ind < 5:
         try:
             current_pos = position_change(directions[direction_ind], current_pos)
-            if current_pos[0] < len(field) and current_pos[1] < len(field[0]):
+            if (current_pos[0] > len(field) or current_pos[0] < 0) or (
+                    current_pos[1] > len(field[3]) or current_pos[1] < 0):
                 raise IndexError
             if field[current_pos[0]][current_pos[1]] == '+':
                 closest_neighbours.append(tuple(current_pos))
@@ -43,6 +44,8 @@ def find_figure(graph, start_node):
     visited = []
     end_node = start_node
     while not is_start_node:
+        if not que:
+            return set()
         current_node, parent = que.popleft()
         parents[current_node] = [parent]
         try:
@@ -117,6 +120,8 @@ def find_max_min_cord(cords):
 
 
 def draw_figure(figure, field):
+    if not figure:
+        return
     is_angle_flag = False
     result_figure = []
     figure = filter_figure_point(list(figure), field)
@@ -193,7 +198,10 @@ def break_pieces(shape):
         figure = find_figure(graph, node)
         if figure not in figures_angle_coordinates:
             figures_angle_coordinates.append(figure)
-            figures_in_lines.append(draw_figure(figure, shape_list))
+            figure_in_line = draw_figure(figure, shape_list)
+            if figure_in_line:
+                figures_in_lines.append(figure_in_line)
+    print(*figures_in_lines, sep='\n')
     return figures_in_lines
 
 
@@ -220,8 +228,6 @@ def break_pieces2(shape):
             figures_in_lines.append(draw_figure(figure, shape_list))
     print(*figures_in_lines, sep='\n#############\n')
     return figures_in_lines
-
-
 
 
 test_data_1 = '\n+-------------------+--+\n|                   |  |\n|                   |  |\n|  +----------------+  ' \
@@ -273,6 +279,14 @@ test_data_5 = '''
 |  +--+  |
 |        |
 +--------+'''
+test_data_6 = '''+------------+
+|            |
+|            |
+|            |
++------+-----+
+|      |     |
+|      |     |
++------+-----+'''
 
 test_data_ex = [
     ('Description example',
@@ -301,7 +315,8 @@ test_data_ex = [
               '+------------+\n|            |\n|            |\n|            |\n|            |\n+------------+']),
          (
              '\n                 \n   +-----+       \n   |     |       \n   |     |       \n   +-----+-----+ \n         |     | \n         |     | \n         +-----+ ',
-             ['+-----+\n|     |\n|     |\n+-----+', '+-----+\n|     |\n|     |\n+-----+'])]),
+             ['+-----+\n|     |\n|     |\n+-----+', '+-----+\n|     |\n|     |\n+-----+']),
+     ]),
     ('Nested pieces',
      [('\n+--------+\n|        |\n|  +--+  |\n|  |  |  |\n|  +--+  |\n|        |\n+--------+',
        ['+--+\n|  |\n+--+', '+--------+\n|        |\n|  +--+  |\n|  |  |  |\n|  +--+  |\n|        |\n+--------+'])]),
@@ -321,8 +336,14 @@ test_data_ex = [
           '+-------+\n|       |\n|       |\n+-------+', '+-------+\n|       |\n|       |\n|       |\n+-------+',
           '+------------+\n|            |\n+------------+',
           '+------------+\n|            |\n| +-------+  |\n| |       |  |\n| |       |  |\n| |       |  |\n| +-------+  |\n|            |\n|            |\n|            |\n|            |\n|            |\n+------------+',
-          '+-------------------------+\n|                         |\n| +----+                  |\n| |    |     +------------+\n| |    |     |\n+-+    +-----+'])])]
-# break_pieces(test_data_5)
+          '+-------------------------+\n|                         |\n| +----+                  |\n| |    |     +------------+\n| |    |     |\n+-+    +-----+'])]),
+    ('My tests',
+     [(
+         '+----------+',
+         [])]
+     ),
+]
+break_pieces(test_data_6)
 
 # for task in test_data_ex:
 #     print(task[0])
@@ -333,12 +354,13 @@ test_data_ex = [
 #         if res == task2[1]:
 #             print('\n Nice!!\n')
 
-for task in test_data_ex:
-    print(task[0])
-    for task2 in task[1]:
-        res = sorted(break_pieces(task2[0]))
-        expected = task2[1]
-        if res == task2[1]:
-            print('Nice!!')
-        else:
-            print('Wrong!')
+# for task in test_data_ex:
+#     print(task[0])
+#     for task2 in task[1]:
+#         res = sorted(break_pieces(task2[0]))
+#         expected = task2[1]
+#         print(res, expected, sep='\n')
+#         if res == task2[1]:
+#             print('Nice!!')
+#         else:
+#             print('Wrong!')
