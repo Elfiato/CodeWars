@@ -1,6 +1,9 @@
+'''
+https://www.codewars.com/kata/54d4c8b08776e4ad92000835
+'''
+
 import time
 from math import log, floor, sqrt
-
 
 
 def time_of_function(function):
@@ -20,19 +23,22 @@ def isPP2(n):
         if k % int(k) == 0 and int(k) != 1:
             return [i, int(k)]
 
+
 def isPP1(n):
-    for i in range(2, n+1):
-        for j in range(2, n+1):
+    for i in range(2, n + 1):
+        for j in range(2, n + 1):
             if i ** j == n:
                 return [i, j]
             if j ** i == n:
                 return [j, i]
+
 
 def isPP(n):
     for i in range(2, n + 1):
         k = int(round(log(n, i)))
         if i ** k == n:
             return [i, k]
+
 
 @time_of_function
 def main():

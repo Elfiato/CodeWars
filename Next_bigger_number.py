@@ -1,3 +1,7 @@
+'''
+https://www.codewars.com/kata/55983863da40caa2c900004e
+'''
+
 import itertools
 import time
 
@@ -27,13 +31,13 @@ def next_bigger2(n):
     mx = n
     n = str(n)
     flag = False
-    for i in range(len(n)-1, -1, -1):
-        for j in range(len(n)-1, -1, -1):
+    for i in range(len(n) - 1, -1, -1):
+        for j in range(len(n) - 1, -1, -1):
             if i != j:
                 if i > j:
-                    k = int(f'{n[:j]}{n[i]}{n[j+1:i]}{n[j]}{n[i+1:]}')
+                    k = int(f'{n[:j]}{n[i]}{n[j + 1:i]}{n[j]}{n[i + 1:]}')
                 else:
-                    k = int(f'{n[:i]}{n[j]}{n[i + 1:j]}{n[i]}{n[j+1:]}')
+                    k = int(f'{n[:i]}{n[j]}{n[i + 1:j]}{n[i]}{n[j + 1:]}')
                 if k > int(n) and not flag:
                     mx = k
                     flag = True
@@ -52,7 +56,7 @@ def next_bigger(n):
         for j in range(len(n) - (len(n) - i), -1, -1):
             if n[i] > n[j]:
                 flag = True
-                base = f'{n[i]}{n[j+1:i]}{n[j]}{n[i+1:]}'
+                base = f'{n[i]}{n[j + 1:i]}{n[j]}{n[i + 1:]}'
                 num[base] = n[:j]
                 break
     if flag:
@@ -64,7 +68,6 @@ def next_bigger(n):
         return int(num[mn] + mn[0] + ''.join(sorted(work_part)))
     else:
         return -1
-
 
 
 print(next_bigger(12))

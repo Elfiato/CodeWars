@@ -1,3 +1,7 @@
+'''
+https://www.codewars.com/kata/527fde8d24b9309d9b000c4e
+'''
+
 from collections import deque
 from math import inf
 

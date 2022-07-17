@@ -1,3 +1,7 @@
+'''
+https://www.codewars.com/kata/526d84b98f428f14a60008da
+'''
+
 from itertools import islice
 from time import time
 
@@ -86,12 +90,11 @@ def hamming3(n):
             expos[i] += int(next_hamms[i] == next_hamm)
     return hamms[-1]
 
+
 def main():
-    #print(int((list(islice(hamming2(), 0, 1)))[0]))
-    #print(hamming(10))
+    # print(int((list(islice(hamming2(), 0, 1)))[0]))
+    # print(hamming(10))
     print(hamming3(10))
-
-
 
 
 start_time = time()

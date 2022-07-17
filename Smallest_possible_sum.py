@@ -1,3 +1,7 @@
+'''
+https://www.codewars.com/kata/52f677797c461daaf7000740
+'''
+
 import random
 import timeit
 from math import gcd
@@ -20,9 +24,8 @@ def solution5(a):
     while len(a) != 1:
         b = max(a)
         a.remove(b)
-        a.add(b-max(a))
+        a.add(b - max(a))
     return max(a) * a_len
-
 
 
 def solution2(arr):
@@ -35,8 +38,8 @@ def solution2(arr):
         arr = sorted(arr, reverse=True)
         end = True
         for i in range(1, N):
-            while arr[i-1] > arr[i]:
-                arr[i-1] -= arr[i]
+            while arr[i - 1] > arr[i]:
+                arr[i - 1] -= arr[i]
                 end = False
     return sum(arr)
 
@@ -96,22 +99,21 @@ def solution(arr):
     return m * arr_len
 
 
-
 arr1 = [random.randint(561, 5004564567) for _ in range(100000)]  # GCD will be 4 or a multiple of 4
-#arr1 = [50, 16, 13]
+# arr1 = [50, 16, 13]
 
-#arr1 = [4739840, 5350835, 2439360, 2627660, 5134115, 3651515, 2685515, 171500, 3628940, 2152640, 8506715, 3385235]
+# arr1 = [4739840, 5350835, 2439360, 2627660, 5134115, 3651515, 2685515, 171500, 3628940, 2152640, 8506715, 3385235]
 
 
-#print(solution(arr1))
-#print(solution2(list(arr1)))
-#print(solution4(arr1))
+# print(solution(arr1))
+# print(solution2(list(arr1)))
+# print(solution4(arr1))
 
-#print(arr1)
+# print(arr1)
 
-#print(solution(arr1) == solution4(arr1))
+# print(solution(arr1) == solution4(arr1))
 
 print(timeit.timeit(lambda: solution(list(arr1)), number=1))
-#print(timeit.timeit(lambda: solution2(list(arr1)), number=1))
-#print(timeit.timeit(lambda: solution5(list(arr1)), number=1))
+# print(timeit.timeit(lambda: solution2(list(arr1)), number=1))
+# print(timeit.timeit(lambda: solution5(list(arr1)), number=1))
 print(timeit.timeit(lambda: solution6(list(arr1)), number=1))

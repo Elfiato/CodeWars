@@ -1,3 +1,8 @@
+'''
+https://www.codewars.com/kata/51c8e37cee245da6b40000bd
+'''
+
+
 def solution(string: str, markers: list):
     result = ''
     strings_mas = string.split('\n')
@@ -6,9 +11,9 @@ def solution(string: str, markers: list):
         new_st = st
         for i in st:
             if i in markers:
-                    st = st[:st.index(i)-1 ]
-                    flag = True
-                    break
+                st = st[:st.index(i) - 1]
+                flag = True
+                break
         if flag and strings_mas.index(new_st) != len(strings_mas) - 1:
             result += st + '\n'
         else:
@@ -37,7 +42,7 @@ def solution1(string: str, markers: list):
                 start = stop + 1
             else:
                 result += '\n'
-                start = counter+1
+                start = counter + 1
                 flag = False
         counter += 1
     if start <= counter and not flag:
@@ -59,5 +64,5 @@ k = (solution1('apples\noranges\ncherries pears oranges cherries pears\n, waterm
 k1 = (solution("a #b\nc\nd $e f g", ["#", "$"]))
 k2 = (solution('a\no s ? @ c s\n. bananas', ['.', "'", '-', ',', '?']))
 k3 = solution1('\n', ['.', "'", '-', ',', '?'])
-k4 = solution1('- lemons apples watermelons\nwatermelons cherries # pears\napples\noranges watermelons apples bananas', ['-', '^', '.', "'", '#', '?'])
-
+k4 = solution1('- lemons apples watermelons\nwatermelons cherries # pears\napples\noranges watermelons apples bananas',
+               ['-', '^', '.', "'", '#', '?'])

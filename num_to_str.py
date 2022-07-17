@@ -1,3 +1,8 @@
+'''
+https://www.codewars.com/kata/525c7c5ab6aecef16e0001a5
+'''
+
+
 def parse_int(string):
     dif_num_dict = {
         'zero': 0,

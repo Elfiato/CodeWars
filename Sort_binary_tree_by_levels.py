@@ -1,3 +1,8 @@
+'''
+https://www.codewars.com/kata/52bef5e3588c56132c0003bc
+'''
+
+
 def tree_by_levels(node):
     visited = []
     que = [node]
@@ -9,6 +14,7 @@ def tree_by_levels(node):
                 que.append(current_node.right)
                 visited.append(current_node.value)
     return visited
+
 
 class Node:
     def __init__(self, L, R, n):

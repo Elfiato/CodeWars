@@ -1,4 +1,9 @@
+'''
+https://www.codewars.com/kata/52f787eb172a8b4ae1000a34
+'''
+
 from math import factorial, log
+
 
 def zeros(n):
     count = 0
@@ -10,6 +15,7 @@ def zeros(n):
             break
     return count
 
+
 def zeros2(n):
     result = 0
     if n > 0:
@@ -18,7 +24,6 @@ def zeros2(n):
         return result
     else:
         return 0
-
 
 
 num = 10000
